@@ -1,16 +1,15 @@
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     static void main() {
-        String path = "C:\\Users\\Luiz Felipe\\OneDrive\\Documentos\\Pós Graduação\\Projetos\\modulo1-projeto-zenon-bank\\zenon-fraud-detector\\data\\paysim_with_bad_data.csv";
-        List<Transaction> list = new ArrayList<>();
-        TransactionIngestor ingestor = new TransactionIngestor();
+        String path = "C:\\Users\\Luiz Felipe\\OneDrive\\Documentos\\Pós Graduação\\Projetos\\modulo1-projeto-zenon-bank\\zenon-fraud-detector\\data\\base_de_dados.csv";
+        String path2 = "C:\\Users\\Luiz Felipe\\OneDrive\\Documentos\\Pós Graduação\\Projetos\\modulo1-projeto-zenon-bank\\zenon-fraud-detector\\data\\base_de_dados2.csv";
 
-        list = ingestor.getDataByFileName(path);
 
-        list.forEach(IO::println);
-        System.out.println("\n Quantity of transactions: " + list.size());
+        TransactionIngestor transactionsIngestor = new TransactionIngestor();
+        List<Transaction> transactionsList = transactionsIngestor.getDataByFileName(path2);
+        IO.println("\nQuantity of transactions: " + transactionsList.size() + "\n");
+
+        transactionsList.forEach(IO::println);
     }
 }

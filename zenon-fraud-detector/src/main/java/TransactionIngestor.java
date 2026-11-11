@@ -9,6 +9,7 @@ import java.util.Optional;
 public class TransactionIngestor {
 
     private List<Transaction> transactions = new ArrayList<>();
+    private int maxTransactions;
 
     public List<Transaction> getDataByFileName(String fileName) {
         Path path = Path.of(fileName);
@@ -16,7 +17,7 @@ public class TransactionIngestor {
             List<String> lines = Files.readAllLines(path);
             return lines.stream()
                     .skip(1)
-                    .limit(1000)
+                    .limit(maxTransactions)
                     .map(this::parseTransaction)
                     .filter(Objects::nonNull) //avoid nullpointexception
                     .filter(Optional::isPresent)
@@ -52,5 +53,9 @@ public class TransactionIngestor {
             System.out.println("Error while parsing, line " + line + e);
             return Optional.empty();
         }
+    }
+
+    public void setMaxTransactions(int maxTransactions) {
+        this.maxTransactions = maxTransactions;
     }
 }

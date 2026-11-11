@@ -7,9 +7,14 @@ public class Main {
 
 
         TransactionIngestor transactionsIngestor = new TransactionIngestor();
-        List<Transaction> transactionsList = transactionsIngestor.getDataByFileName(path2);
+        transactionsIngestor.setMaxTransactions(50000);
+
+        List<Transaction> transactionsList = transactionsIngestor.getDataByFileName(path);
         IO.println("\nQuantity of transactions: " + transactionsList.size() + "\n");
 
         transactionsList.forEach(IO::println);
+
+        FraudAnalyzer fraudAnalyzer = new FraudAnalyzer();
+        fraudAnalyzer.setTotalFraud(transactionsList);
     }
 }

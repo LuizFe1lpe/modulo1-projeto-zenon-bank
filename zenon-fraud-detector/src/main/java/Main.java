@@ -33,5 +33,31 @@ public class Main {
         IO.println("4. Total loss: " + fraudAnalyzer.calculateAndGetTotalLoss());
         IO.println("5. Frauds by type: ");
         fraudAnalyzer.countFraudByType().forEach((transactionType, count) -> IO.println("%s: %d".formatted(transactionType, count)));
+
+        TransactionRepository transactionRepository;
+
+        transactionRepository = new TransactionListRepository(transactionsList);
+        String originInexistente = "C12345";
+        transactionRepository.findByOriginName(originInexistente)
+                .ifPresentOrElse(IO::println, () -> IO.println("\nERROR: Origin not found! " + originInexistente));
+
+        String originExistente = "C1231006815";
+        transactionRepository.findByOriginName(originExistente)
+                .ifPresentOrElse(IO::println, () -> IO.println("\nERROR: Origin not found! " + originInexistente));
+
+        Long startTime = System.nanoTime();
+        String origin = "C1868032458";
+        transactionRepository.findByOriginName(origin)
+                .ifPresentOrElse(IO::println, () -> IO.println("\nERROR: Origin not found! " + originInexistente));
+        Long endTime = System.nanoTime();
+        IO.println("\nSearch time - List (ms): " + (endTime - startTime) / 1000000.0);
+
+        transactionRepository = new TransactionMapRepository(transactionsList);
+
+        startTime = System.nanoTime();
+        transactionRepository.findByOriginName(origin)
+                .ifPresentOrElse(IO::println, () -> IO.println("\nERROR: Origin not found! " + originInexistente));
+        endTime = System.nanoTime();
+        IO.println("\nSearch time - Map (ms): " + (endTime - startTime) / 1000000.0);
     }
 }

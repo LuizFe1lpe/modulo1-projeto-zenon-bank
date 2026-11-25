@@ -9,7 +9,7 @@ import java.util.Optional;
 public class TransactionIngestor {
 
     private List<Transaction> transactions = new ArrayList<>();
-    public final static int maxTransactions = 50000;
+    public final static int maxTransactions = 100000;
 
     public List<Transaction> getDataByFileName(String fileName) {
         Path path = Path.of(fileName);
